@@ -22,7 +22,7 @@ def generate_and_download():
 def add_file():
     files = get_files()
     if 'path' in request.form and request.form['path'] not in files:
-        files.append(request.form['path'])
+        files.append(str(request.form['path']).replace('/android/repository/', '', 1))
         save_files(files)
         return jsonify({'success': True, 'files': files})
     else:
