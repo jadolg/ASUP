@@ -7,7 +7,7 @@ PWD = '/home/akiel/Desktop/SDKUPDATE/'
 
 
 @app.route('/')
-def hello_world():
+def generate_and_download():
     download_files(PWD)
     compress_files(PWD)
     return send_from_directory(PWD, 'update.tar.gz', as_attachment=True)
