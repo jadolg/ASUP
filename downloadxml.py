@@ -4,55 +4,35 @@ from os.path import dirname, abspath
 
 import requests
 
+from files_management import get_files
+
 PREFIX = 'https://dl.google.com/android/repository/'
 PATH = 'android/repository/'
 
-FILES = [
-    'repository2-1.xml',
-    'addons_list-1.xml',
-    'addons_list-2.xml',
-    'addons_list-3.xml',
-    'sys-img/android/sys-img2-1.xml',
-    'sys-img/android-wear/sys-img2-1.xml',
-    'sys-img/android-wear-cn/sys-img2-1.xml',
-    'sys-img/android-tv/sys-img2-1.xml',
-    'sys-img/google_apis/sys-img2-1.xml',
-    'sys-img/google_apis_playstore/sys-img2-1.xml',
-    'addon2-1.xml',
-    'glass/addon2-1.xml',
-    'extras/intel/addon2-1.xml'
-]
-
 
 def download_files(pwd):
-    for afile in FILES:
+    files = get_files()
+    error_files = []
+    for afile in files:
         print('downloading ' + afile)
-        try:
-            r = requests.get(PREFIX + afile, stream=True, verify=False)
-        except:
-            pass
-
-        while not r or r.status_code != 200:
-            print('retry...')
-            try:
-                r = requests.get(PREFIX + afile, stream=True, verify=False)
-            except:
-                pass
+        r = requests.get(PREFIX + afile, stream=True, verify=False)
 
         if r.status_code == 200:
             directory = dirname(abspath(pwd + PATH + afile))
             try:
-                print('creating ' + directory)
                 makedirs(directory)
-                print('created directory ' + directory)
             except OSError:
-                print(directory + ' was already there')
+                pass
 
             print('writing...', end=' ')
             with open(pwd + PATH + afile, 'wb') as f:
                 for chunk in r:
                     f.write(chunk)
             print('done')
+        else:
+            error_files.append(afile)
+
+    return {'errors': len(error_files), 'error_files': error_files}
 
 
 def compress_files(pwd):
