@@ -47,14 +47,10 @@ def list_files():
 
 @app.route('/help', methods=['GET', ])
 def get_help():
-    help_text = '''
-    <p>Get the file by just opening the home page.<p>
-    <ul>
-        <li>add a new file to download:<code> curl http://localhost:5000/add -d path=apath/over/here/there</code></li>
-        <li>delete a file from download list:<code> curl http://localhost:5000/delete -d path=apath/over/here/there</code></li>
-        <li>list all files: <code>curl http://localhost:5000/list</code></li>
-    </ul>
-    '''
+    help_text = '''<p>Get the file by just opening the <a href="/">home page</a>.<p> <ul> <li>add a new file to download:<code> curl 
+    http://localhost:5000/add -d path=apath/over/here/there</code></li> <li>delete a file from download list:<code> 
+    curl http://localhost:5000/delete -d path=apath/over/here/there</code></li> <li>list all files: <code>curl 
+    http://localhost:5000/list</code></li> </ul> '''
     return help_text
 
 
