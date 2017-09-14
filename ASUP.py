@@ -1,10 +1,10 @@
 from flask import Flask, send_from_directory, request, jsonify
 
 from downloadxml import download_files, compress_files
-from files_management import get_files, save_files
+from files_management import get_files, save_files, APP_ROUTE
 
 app = Flask(__name__)
-DOWNLOAD_PATH = '/home/akiel/Desktop/SDKUPDATE/'
+DOWNLOAD_PATH = APP_ROUTE + 'sdk_update/'
 
 
 @app.route('/')
