@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Help</title>
+</head>
+<body>
+<p>Get the file by just opening the <a href="/">home page</a>.</p>
+<ul>
+    <li>add a new file to download:<code> curl
+        http://localhost:5000/add -d path=apath/over/here/there</code></li>
+    <li>delete a file from download list:<code>
+        curl http://localhost:5000/delete -d path=apath/over/here/there</code></li>
+    <li>list all files: <code>curl
+        http://localhost:5000/list</code></li>
+</ul>
+</body>
+</html>

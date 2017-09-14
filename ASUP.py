@@ -1,4 +1,5 @@
 from flask import Flask, send_from_directory, request, jsonify
+from flask.templating import render_template
 
 from downloadxml import download_files, compress_files
 from files_management import get_files, save_files, APP_ROUTE
@@ -47,11 +48,7 @@ def list_files():
 
 @app.route('/help', methods=['GET', ])
 def get_help():
-    help_text = '''<p>Get the file by just opening the <a href="/">home page</a>.<p> <ul> <li>add a new file to download:<code> curl 
-    http://localhost:5000/add -d path=apath/over/here/there</code></li> <li>delete a file from download list:<code> 
-    curl http://localhost:5000/delete -d path=apath/over/here/there</code></li> <li>list all files: <code>curl 
-    http://localhost:5000/list</code></li> </ul> '''
-    return help_text
+    return render_template('help.html')
 
 
 if __name__ == '__main__':
